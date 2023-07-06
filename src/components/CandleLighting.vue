@@ -1,4 +1,6 @@
 <template>
+  <button class="button"  @click="getTimesBs">Bet Shemesh</button>
+  <button class="button" @click="getTimesJlm">Jerusalem</button>
   <div class="shabbos-times" v-if="shabbosTimes">
     <div class="info">
       <h1 class="title">{{ shabbosTimes.items[3].hebrew}}</h1>
@@ -14,11 +16,13 @@
 export default {
   data() {
     return {
-      shabbosTimes: null
+      shabbosTimes: null,
+      urlLocation: 295432
     }
   },
   mounted () {
-   fetch('https://www.hebcal.com/shabbat?cfg=json&geonameid=281184&M=on')
+    const url = `https://www.hebcal.com/shabbat?cfg=json&geonameid=${this.urlLocation}&M=on`
+      fetch(url)
   .then(response => response.json())
   .then(data => this.shabbosTimes = data)
   
@@ -28,11 +32,23 @@ export default {
       const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
       const date = new Date(dateString);
       return date.toLocaleDateString('en-US', options);
-  }},
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+  },
+   getTimesBs () {
+    this.urlLocation = 295432
+    const url = `https://www.hebcal.com/shabbat?cfg=json&geonameid=${this.urlLocation}&M=on`
+    fetch(url)
+  .then(response => response.json())
+  .then(data => this.shabbosTimes = data)
+   },
+   getTimesJlm () {
+    this.urlLocation = 281184
+    const url = `https://www.hebcal.com/shabbat?cfg=json&geonameid=${this.urlLocation}&M=on`
+    fetch(url)
+  .then(response => response.json())
+  .then(data => this.shabbosTimes = data)
+   }
+},
+  
   
 }
 </script>
@@ -84,5 +100,15 @@ export default {
 .image {
   width: 320px;
   margin-top: 20px;
+}
+.button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: rgb(246, 196, 71);
+  font-family: 'Poppins', sans-serif;
 }
 </style>
