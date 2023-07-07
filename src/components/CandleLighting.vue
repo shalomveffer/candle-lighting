@@ -1,5 +1,5 @@
 <template>
-  <button class="button"  @click="getTimesBs">Bet Shemesh</button>
+  <button class="button"  @click="getTimesBs">Beit Shemesh</button>
   <button class="button" @click="getTimesJlm">Jerusalem</button>
   <div class="shabbos-times" v-if="shabbosTimes">
     <div class="info">
